@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import type { BookingData } from '@/app/page';
-import { supabase } from '@/lib/supabase';
 import Step1Event     from './steps/Step1Event';
 import Step2Time      from './steps/Step2Time';
 import Step3Logistics from './steps/Step3Logistics';
@@ -39,25 +38,31 @@ export default function BookingConsole({ step, formData, setFormData, goTo }: Pr
     setSubmitting(true);
     setSubmitError(null);
 
-    const { error } = await supabase.from('bookings').insert({
-      date:        formData.date,
-      location:    formData.location,
-      event_type:  formData.eventType,
-      start_time:  `${formData.hour}:${formData.minute} ${formData.ampm}`,
-      duration:    formData.duration,
-      equipment:   formData.equipment,
-      contact:     formData.contact,
-    });
+    try {
+      const res = await fetch('/api/booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          date:      formData.date,
+          location:  formData.location,
+          eventType: formData.eventType,
+          startTime: `${formData.hour}:${formData.minute} ${formData.ampm}`,
+          duration:  formData.duration,
+          equipment: formData.equipment,
+          contact:   formData.contact,
+        }),
+      });
 
-    setSubmitting(false);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? 'Something went wrong');
 
-    if (error) {
-      setSubmitError(error.message);
-      return;
+      djDrop();
+      setTimeout(() => setShowSuccess(true), 320);
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : 'Something went wrong');
+    } finally {
+      setSubmitting(false);
     }
-
-    djDrop();
-    setTimeout(() => setShowSuccess(true), 320);
   };
 
   return (

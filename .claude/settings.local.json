@@ -10,7 +10,8 @@
       "Bash(\"C:/Users/USER/Documents/Code/Booking Site/public/images/README.txt\")",
       "Bash(ls \"C:/Users/USER/Documents/Code/Booking Site\"/.env*)",
       "Bash(npm install:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(\"C:/Users/USER/Documents/Code/Booking Site/.env.local\")"
     ]
   }
 }
