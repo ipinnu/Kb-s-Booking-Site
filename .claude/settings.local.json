@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-turbopack --yes)",
+      "Read(//c/Users/USER/Documents/Code/**)",
+      "Bash(npx create-next-app@latest booking-site-temp --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-turbopack --yes)",
+      "Bash(cp -r \"C:/Users/USER/Documents/Code/booking-site-temp/.\" \"C:/Users/USER/Documents/Code/Booking Site/\")",
+      "Bash(rm -rf \"C:/Users/USER/Documents/Code/booking-site-temp\")",
+      "Bash(npm run:*)",
+      "Bash(\"C:/Users/USER/Documents/Code/Booking Site/public/images/README.txt\")",
+      "Bash(ls \"C:/Users/USER/Documents/Code/Booking Site\"/.env*)",
+      "Bash(npm install:*)",
+      "Bash(curl:*)"
+    ]
+  }
+}

@@ -1,26 +1,228 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────
+   CSS VARIABLES
+───────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg:      #0a060f;
+  --deep:    #110a1a;
+  --panel:   #130d1e;
+  --surface: #1a1128;
+  --border:  rgba(177, 129, 178, 0.12);
+  --purple:  #6f4371;
+  --purple2: #9b5ca0;
+  --purple3: #c084c8;
+  --lilac:   #e2d9e3;
+  --gold:    #f5d98e;
+  --text:    #f0eaf2;
+  --muted:   rgba(240, 234, 242, 0.45);
+  --faint:   rgba(240, 234, 242, 0.12);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─────────────────────────────────────────
+   BASE RESET
+───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  cursor: none;
+  overflow-x: hidden;
+}
+
+a, button, input, select, textarea, [role="button"], [tabindex] {
+  cursor: none;
+}
+
+/* ─────────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--deep); }
+::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--purple3); }
+
+/* ─────────────────────────────────────────
+   LAYOUT
+───────────────────────────────────────── */
+.page-root {
+  display: grid;
+  grid-template-columns: 1fr 460px;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+/* ─────────────────────────────────────────
+   INPUT FOCUS STYLES
+───────────────────────────────────────── */
+.booking-input:focus {
+  border-color: var(--purple3) !important;
+  box-shadow: 0 0 0 3px rgba(192, 132, 200, 0.15) !important;
+  outline: none;
+}
+
+.booking-input::placeholder {
+  color: var(--muted);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7) sepia(1) saturate(2) hue-rotate(250deg);
+  opacity: 0.6;
+  cursor: none;
+}
+
+select.booking-input option {
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* ─────────────────────────────────────────
+   BUTTON HOVER / ACTIVE EFFECTS
+───────────────────────────────────────── */
+.nav-btn {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+}
+.nav-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(155, 92, 160, 0.35);
+}
+.nav-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.nav-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  transition: left 0.4s ease;
+}
+.nav-btn:hover::after {
+  left: 150%;
+}
+
+.chip-btn {
+  transition: all 0.18s ease;
+}
+.chip-btn:hover {
+  border-color: var(--purple3) !important;
+  color: var(--purple3) !important;
+  box-shadow: 0 0 10px rgba(192, 132, 200, 0.2);
+}
+
+/* ─────────────────────────────────────────
+   KEYFRAME ANIMATIONS
+───────────────────────────────────────── */
+
+/* Orbs */
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1);    opacity: 0.6; }
+  33%       { transform: translate(40px, -60px) scale(1.15); opacity: 0.8; }
+  66%       { transform: translate(-30px, 40px) scale(0.9); opacity: 0.5; }
+}
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1);     opacity: 0.5; }
+  40%       { transform: translate(-50px, 50px) scale(1.2); opacity: 0.75; }
+  70%       { transform: translate(60px, -30px) scale(0.85); opacity: 0.45; }
+}
+@keyframes orbFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1);     opacity: 0.55; }
+  35%       { transform: translate(30px, 60px) scale(1.1); opacity: 0.7; }
+  65%       { transform: translate(-60px, -20px) scale(0.95); opacity: 0.4; }
+}
+
+/* Particles */
+@keyframes pFloat {
+  0%   { transform: translateY(100vh); opacity: 0; }
+  8%   { opacity: 1; }
+  90%  { opacity: 0.7; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Stars */
+@keyframes starTwinkle {
+  0%, 100% { transform: scale(0.8); opacity: 0.25; }
+  50%       { transform: scale(1.3); opacity: 1; }
+}
+
+/* Unicorn float */
+@keyframes uFloat {
+  0%, 100% { transform: translateY(0) scale(1);    filter: drop-shadow(0 0 12px rgba(155, 92, 160, 0.8)); }
+  50%       { transform: translateY(-12px) scale(1.04); filter: drop-shadow(0 0 26px rgba(245, 217, 142, 0.65)); }
+}
+
+/* Rings */
+@keyframes ringRotateCW  { from { transform: rotate(0deg);    } to { transform: rotate(360deg);  } }
+@keyframes ringRotateCCW { from { transform: rotate(0deg);    } to { transform: rotate(-360deg); } }
+
+/* EQ bars */
+@keyframes eqBounce {
+  0%, 100% { height: var(--lo); }
+  50%       { height: var(--hi); }
+}
+
+/* Step transition */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* DJ flash */
+@keyframes flashPop {
+  0%   { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+
+/* Footer dot blink */
+@keyframes fBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* Success icon pulse */
+@keyframes sucPulse {
+  0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 16px rgba(155, 92, 160, 0.7)); }
+  50%       { transform: scale(1.08); filter: drop-shadow(0 0 32px rgba(245, 217, 142, 0.8)); }
+}
+
+/* Star burst (success) */
+@keyframes starBurst {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-70px) scale(1.5); }
+}
+
+/* Shimmer for buttons */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .page-root {
+    grid-template-columns: 1fr;
+    grid-template-rows: 45vh 1fr;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  .vibe-stage {
+    position: relative !important;
+    height: 45vh !important;
+  }
+  .brand-name {
+    font-size: 64px !important;
+  }
+  .console-panel {
+    min-height: auto;
+  }
 }
