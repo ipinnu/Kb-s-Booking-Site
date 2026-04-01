@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { supabase } from '@/lib/supabase';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend('re_6k8dxgE3_FJCaYDjKU4jzi5skvjseWVrA');
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
   // 2. Send email via Resend
   const { error: emailError } = await resend.emails.send({
     from: 'KB LA MAESTEA Bookings <onboarding@resend.dev>',
-    to: 'kbsvision23@gmail.com',
+    to: ['kbsvision23@gmail.com', 'ipinnu.oladipo23@gmail.com'],
     subject: `🦄 New Booking Request — ${eventType} on ${date}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a060f; color: #f0eaf2; padding: 32px; border-radius: 12px;">
