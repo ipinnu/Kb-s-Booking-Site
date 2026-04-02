@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { supabase } from '@/lib/supabase';
 
-const resend = new Resend('re_6k8dxgE3_FJCaYDjKU4jzi5skvjseWVrA');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
