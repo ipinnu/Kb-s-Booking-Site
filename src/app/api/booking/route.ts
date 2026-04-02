@@ -25,8 +25,8 @@ export async function POST(req: NextRequest) {
 
   // 2. Send email via Resend
   const { error: emailError } = await resend.emails.send({
-    from: 'KB LA MAESTEA Bookings <onboarding@resend.dev>',
-    to: ['kbsvision23@gmail.com', 'ipinnu.oladipo23@gmail.com'],
+    from: 'KB LA MAESTEA Bookings <bookings@ipinnuoluwa.com.ng>',
+    to: 'kbsvision23@gmail.com',
     subject: `🦄 New Booking Request — ${eventType} on ${date}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a060f; color: #f0eaf2; padding: 32px; border-radius: 12px;">
