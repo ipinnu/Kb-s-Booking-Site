@@ -10,7 +10,7 @@ interface Props {
   onBack: () => void;
 }
 
-const EVENT_TYPES = ['Club Night', 'Private Party', 'Wedding', 'Corporate', 'Festival', 'Other'];
+const EVENT_TYPES = ['Club Night', 'Private Party', 'Wedding', 'Corporate', 'Festival', 'Pop Up'];
 
 export default function Step1Event({ formData, setFormData, onNext }: Props) {
   const canProceed = !!(formData.date && formData.location && formData.eventType);

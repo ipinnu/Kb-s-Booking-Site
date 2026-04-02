@@ -11,7 +11,7 @@ interface Props {
   onBack: () => void;
 }
 
-const EQUIPMENT = ['DJ Decks', 'Speakers', 'Mixer', 'Microphone', 'Lighting', 'None Needed'];
+const EQUIPMENT = ['DJ Decks', 'Speaker', 'Microphone', 'None Needed'];
 
 export default function Step3Logistics({ formData, setFormData, onNext, onBack }: Props) {
   const [contactError, setContactError] = useState(false);
