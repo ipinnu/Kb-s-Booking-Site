@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import EQBars from './EQBars';
 import Waveform from './Waveform';
+import SpotifyPlayer from './SpotifyPlayer';
 
 const CANDIDATE_IMAGES = [
   '/images/WhatsApp%20Image%202026-03-28%20at%202.00.34%20PM.jpeg',
@@ -44,13 +45,6 @@ const CANDIDATE_IMAGES = [
   '/images/WhatsApp%20Image%202026-04-01%20at%206.57.20%20PM.jpeg',
 ];
 
-const TRACKS = [
-  'Purple Haze Sessions',
-  'Ultraviolet Dreams',
-  'Midnight Maestea',
-  'The Lilac Hour',
-  'Kingdom Frequency',
-];
 
 interface Particle { id: number; left: string; size: number; color: string; dur: number; delay: number }
 interface Star      { id: number; top: string; left: string; size: number; dur: number; delay: number }
@@ -66,8 +60,6 @@ const ORB_CFG = [
 export default function VibeStage() {
   const [validImages,  setValidImages]  = useState<string[]>([]);
   const [activeIdx,    setActiveIdx]    = useState(0);
-  const [trackIdx,     setTrackIdx]     = useState(0);
-  const [trackVisible, setTrackVisible] = useState(true);
   const [particles,    setParticles]    = useState<Particle[]>([]);
   const [stars,        setStars]        = useState<Star[]>([]);
   const [mounted,      setMounted]      = useState(false);
@@ -92,14 +84,6 @@ export default function VibeStage() {
     return () => clearInterval(id);
   }, [validImages]);
 
-  /* Track cycling */
-  useEffect(() => {
-    const id = setInterval(() => {
-      setTrackVisible(false);
-      setTimeout(() => { setTrackIdx(i => (i + 1) % TRACKS.length); setTrackVisible(true); }, 420);
-    }, 4000);
-    return () => clearInterval(id);
-  }, []);
 
   /* Generate decorative elements client-side to avoid hydration mismatch */
   useEffect(() => {
@@ -280,7 +264,7 @@ export default function VibeStage() {
         </div>
 
         {/* ─ Center: Rings + Unicorn + EQ ─ */}
-        <div style={{
+        <div className="vibe-center" style={{
           flex: 1,
           display: 'flex', flexDirection: 'column',
           alignItems: 'center', justifyContent: 'center',
@@ -324,33 +308,22 @@ export default function VibeStage() {
           </div>
         </div>
 
-        {/* ─ Bottom: Now Spinning + Waveform ─ */}
-        <div>
-          <div style={{ marginBottom: 10 }}>
-            <p style={{
-              fontFamily: 'var(--font-dm-sans)',
-              fontSize: 10,
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              color: 'var(--muted)',
-              marginBottom: 4,
-            }}>
-              Now Spinning
-            </p>
-            <p style={{
-              fontFamily: 'var(--font-instrument-serif)',
-              fontStyle: 'italic',
-              fontSize: 19,
-              color: 'var(--purple3)',
-              opacity: trackVisible ? 1 : 0,
-              transform: trackVisible ? 'translateY(0)' : 'translateY(8px)',
-              transition: 'opacity 0.38s ease, transform 0.38s ease',
-              minHeight: 26,
-            }}>
-              {TRACKS[trackIdx]}
-            </p>
+        {/* ─ Bottom: Spotify Player + Waveform ─ */}
+        <div className="vibe-bottom">
+          <p style={{
+            fontFamily: 'var(--font-dm-sans)',
+            fontSize: 10,
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            color: 'var(--muted)',
+            marginBottom: 8,
+          }}>
+            Now Spinning
+          </p>
+          <SpotifyPlayer />
+          <div style={{ marginTop: 12 }}>
+            <Waveform />
           </div>
-          <Waveform />
         </div>
       </div>
     </div>

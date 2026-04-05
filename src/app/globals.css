@@ -225,4 +225,19 @@ select.booking-input option {
   .console-panel {
     min-height: auto;
   }
+
+  /* Hide the rings/unicorn on mobile — not enough vertical space */
+  .vibe-center {
+    display: none !important;
+  }
+
+  /* Tighten the content padding so player always fits */
+  .vibe-stage > div:last-child {
+    padding: 1.2rem 1.4rem 1rem !important;
+  }
+
+  /* Compact the player card itself */
+  .vibe-bottom {
+    flex-shrink: 0;
+  }
 }
