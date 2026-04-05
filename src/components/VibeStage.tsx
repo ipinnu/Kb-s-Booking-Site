@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import EQBars from './EQBars';
-import Waveform from './Waveform';
-import SpotifyPlayer from './SpotifyPlayer';
+import VibeBottomBar from './VibeBottomBar';
 
 const CANDIDATE_IMAGES = [
   '/images/WhatsApp%20Image%202026-03-28%20at%202.00.34%20PM.jpeg',
@@ -308,7 +307,7 @@ export default function VibeStage() {
           </div>
         </div>
 
-        {/* ─ Bottom: Spotify Player + Waveform ─ */}
+        {/* ─ Bottom: merged wave + player bar ─ */}
         <div className="vibe-bottom">
           <p style={{
             fontFamily: 'var(--font-dm-sans)',
@@ -316,14 +315,11 @@ export default function VibeStage() {
             letterSpacing: '0.22em',
             textTransform: 'uppercase',
             color: 'var(--muted)',
-            marginBottom: 8,
+            marginBottom: 4,
           }}>
             Now Spinning
           </p>
-          <SpotifyPlayer />
-          <div style={{ marginTop: 12 }}>
-            <Waveform />
-          </div>
+          <VibeBottomBar />
         </div>
       </div>
     </div>
